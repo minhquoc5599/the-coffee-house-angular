@@ -1,0 +1,43 @@
+<!-- <div class="container-fluid fill">
+  <div class="row justify-content-center align-items-center fill">
+    <div class="col-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
+      <div class="form-login">
+        <h3 class="text-center text-uppercase">The coffee house</h3>
+        <form [formGroup]="formLogin" (ngSubmit)="onSubmit()">
+          <div class="form-group">
+            <input type="text" class="form-control" id="email" placeholder="Username"
+              formControlName="username"  required>
+          </div>
+          <div class="form-group">
+            <input type="password" class="form-control" id="password" placeholder="Password" 
+              formControlName="password" required>
+          </div>
+          <div class="form-group">
+            <label for="errorLogin" style="color: red;">sfdf</label>
+          </div>
+          <button class="btn btn-block btn-login" ng-click="loginSubmit()">Login</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div> -->
+
+<div class="container-fluid fill">
+  <div class="row justify-content-center align-items-center fill">
+    <mat-card>
+      <mat-card-title>The coffee house</mat-card-title>
+      <mat-card-content>
+        <form [formGroup]="formLogin" (ngSubmit)="onSubmit()">
+          <mat-form-field>
+            <input matInput type="text" placeholder="Username" required formControlName="username">
+          </mat-form-field>
+          <mat-form-field>
+            <input matInput type="password" placeholder="Password" required formControlName="password">
+          </mat-form-field>
+          <p class="error" *ngIf="error">{{error}}</p>
+          <button mat-button class="btn-login" type="submit">Login</button>
+        </form>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

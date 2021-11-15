@@ -1,0 +1,38 @@
+.fill {
+  min-height: 100vh;
+  background-color: lightgrey;
+}
+
+mat-card {
+  padding: 30px;
+  max-width: 300px;
+  max-height: 400px;
+}
+
+mat-form-field {
+  width: 100%
+}
+
+mat-card-title {
+  text-align: center;
+}
+
+mat-card-content {
+  margin-top: 40px;
+}
+
+.btn-login {
+  background-color: #e57905;
+  width: 100%;
+}
+
+.btn-login:hover {
+  position: relative;
+  top: -1px;
+}
+
+.error{
+  padding: 8px;
+  background-color: red;
+  color: white
+}
