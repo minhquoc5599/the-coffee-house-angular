@@ -1,0 +1,35 @@
+.content {
+  padding: 20px 40px 100px
+}
+
+.content__title {
+  padding: 10px 0;
+  font-size: 20px;
+}
+
+.table__name {
+  font-size: 20px;
+  text-transform: uppercase;
+}
+
+.table__search {
+  width: 250px;
+}
+
+table {
+  width: 100%;
+}
+
+.mat-header-cell {
+  font-size: 20px;
+  font-weight: bold;
+  text-transform: capitalize;
+}
+
+.mat-cell {
+  font-size: 18px;
+}
+
+.quantity {
+  margin-left: 10px;
+}

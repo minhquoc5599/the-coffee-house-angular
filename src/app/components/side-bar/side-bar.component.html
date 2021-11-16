@@ -1,0 +1,11 @@
+<mat-sidenav-container autosize="true">
+  <mat-sidenav mode="side" opened>
+    <mat-nav-list>
+      <mat-list-item  routerLink="account-mgmt"><i class="fas fa-users"></i></mat-list-item>
+      <mat-list-item  routerLink="product-mgmt"><i class="fas fa-coffee"></i></mat-list-item>
+    </mat-nav-list>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
+</mat-sidenav-container>

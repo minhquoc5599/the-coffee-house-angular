@@ -1,0 +1,17 @@
+mat-toolbar{
+  background-color: #e57905;
+}
+
+.title{
+  font-size: 25px;
+  cursor: pointer;
+}
+
+.btn-logout{
+  cursor: pointer;
+}
+
+.icon-profile{
+  color: #fff;
+  font-size: 25px;
+}

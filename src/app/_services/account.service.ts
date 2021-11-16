@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { BehaviorSubject, filter, map, Observable } from 'rxjs';
 import { User } from '../_models/user';
 import { HttpClient } from '@angular/common/http';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +11,6 @@ import { HttpClient } from '@angular/common/http';
 export class AccountService {
 
   private userSubject: BehaviorSubject<User>;
-  private apiUrl: string = "https://601924d6971d850017a40c07.mockapi.io/api/accounts"
   constructor(private router: Router, private http: HttpClient) {
     this.userSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('user') || 'null'));
   }
@@ -20,7 +20,7 @@ export class AccountService {
   }
 
   public login(username: string, password: string) {
-    return this.http.get<User[]>(this.apiUrl).pipe(map(users => {
+    return this.http.get<User[]>(`${environment.apiUrl}/accounts`).pipe(map(users => {
       const user = users.find(user =>
         user.username === username &&
         user.password === password &&
@@ -44,5 +44,9 @@ export class AccountService {
     localStorage.removeItem('user')
     this.userSubject.next(JSON.parse('null'));
     this.router.navigate(['/login']);
+  }
+
+  public getAll():Observable<User[]> {
+    return this.http.get<User[]>(`${environment.apiUrl}/accounts`);
   }
 }
