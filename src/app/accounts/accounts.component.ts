@@ -1,7 +1,5 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatPaginator } from '@angular/material/paginator';
+import { Component, OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
-import { MatSort, Sort } from '@angular/material/sort';
 import { Observable } from 'rxjs';
 import { User } from '../_models/user';
 import { AccountService } from '../_services/account.service';
@@ -12,8 +10,6 @@ import { AccountService } from '../_services/account.service';
   styleUrls: ['./accounts.component.css']
 })
 export class AccountsComponent implements OnInit {
-  @ViewChild(MatPaginator) paginator!: MatPaginator;
-  @ViewChild(MatSort) sort!: MatSort
   public accountList!: MatTableDataSource<User>;
   public columnList: { name: string, sorted?: boolean, checkbox?: boolean, template?: string }[] = [
     {
@@ -44,15 +40,12 @@ export class AccountsComponent implements OnInit {
       name: 'action'
     }
   ];
-  public displayedColumns: string[] = this.columnList.map(col => col.name);
 
   constructor(private accountService: AccountService) { }
 
   ngOnInit(): void {
     this.accountService.getAll().subscribe(accounts => {
       this.accountList = new MatTableDataSource<User>(accounts);
-      this.accountList.paginator = this.paginator;
-      this.accountList.sort = this.sort;
     });
   }
 }
