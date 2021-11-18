@@ -21,6 +21,7 @@ export class ProductsComponent implements OnInit {
     },
     {
       name: 'image',
+      template: 'image'
     },
     {
       name: 'category',
@@ -29,14 +30,20 @@ export class ProductsComponent implements OnInit {
     {
       name: 'sizes',
       sorted: true,
+      template: 'size'
     },
     {
       name: 'action'
     }
   ];
+
   constructor(private productService: ProductService) { }
 
   ngOnInit(): void {
+    this.reload();
+  }
+
+  public reload() {
     this.productService.getAll().subscribe(products => {
       this.productList = new MatTableDataSource<Product>(products);
     });

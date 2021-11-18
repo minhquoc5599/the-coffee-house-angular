@@ -13,7 +13,7 @@ export class LoggedInAuthGuard implements CanActivate {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
     if (this.accountService.userValue) {
-      this.router.navigate(['/admin']);
+      this.router.navigate(['/admin/home']);
       return false
     }
     return true;

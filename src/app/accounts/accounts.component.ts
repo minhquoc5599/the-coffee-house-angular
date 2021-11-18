@@ -44,6 +44,10 @@ export class AccountsComponent implements OnInit {
   constructor(private accountService: AccountService) { }
 
   ngOnInit(): void {
+    this.reload();
+  }
+
+  public reload() {
     this.accountService.getAll().subscribe(accounts => {
       this.accountList = new MatTableDataSource<User>(accounts);
     });

@@ -18,6 +18,7 @@ import { ProductsComponent } from './products/products.component';
 import { HomeComponent } from './home/home.component';
 import { TableComponent } from './components/table/table.component';
 import { MaterialModule } from './_modules/material/material.module';
+import { MultiComponent } from './components/multi/multi.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -30,6 +31,7 @@ import { MaterialModule } from './_modules/material/material.module';
     ProductsComponent,
     HomeComponent,
     TableComponent,
+    MultiComponent,
   ],
   imports: [
     BrowserModule,

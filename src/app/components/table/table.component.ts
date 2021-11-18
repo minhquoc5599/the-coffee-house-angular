@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, OnInit, SimpleChanges, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { MatSort, Sort } from '@angular/material/sort';
@@ -15,6 +15,9 @@ export class TableComponent implements OnInit, OnChanges {
   @Input() columnList: any[] = [];
   @Input() displayedColumns: string[] = [];
   @Input() data!: MatTableDataSource<any>;
+
+  @Output() newItemEvent = new EventEmitter<string>();
+
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort
 
@@ -38,6 +41,7 @@ export class TableComponent implements OnInit, OnChanges {
   ngOnInit(): void {
   }
 
+  // Sort
   public announceSortChange(sortState: Sort) {
     if (sortState.direction) {
       this._liveAnnouncer.announce(`Sorted ${sortState.direction}ending`);
@@ -46,6 +50,7 @@ export class TableComponent implements OnInit, OnChanges {
     }
   }
 
+  // Select
   public isAllSelected() {
     const numSelected = this.selection.selected.length;
     const numRows = this.data.data.length;
@@ -58,8 +63,13 @@ export class TableComponent implements OnInit, OnChanges {
       this.data.data.forEach(row => this.selection.select(row));
   }
 
-  // public click() {
-  //   this.selection.selected.forEach(element => console.log(element.id));
-  // }
+  // Search
+  public search(event: any) {
+    this.data.filter = event.target.value.trim().toLocaleLowerCase();
+  }
 
+  // Reload
+  public reload() {
+    this.newItemEvent.emit();
+  }
 }

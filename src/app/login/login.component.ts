@@ -31,7 +31,7 @@ export class LoginComponent implements OnInit {
     }
     this.accountService.login(this.formLogin.value.username, this.formLogin.value.password).subscribe(data =>{
       if(data.isSuccess){
-        this.router.navigate(['/admin'])
+        this.router.navigate(['/admin/home'])
       }else{
         this.error = 'Username and password are wrong !!!'
       }
