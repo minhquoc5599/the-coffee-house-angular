@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { MultiComponent } from './multi.component';
+import { MultiDialogComponent } from './multi-dialog.component';
 
-describe('MultiComponent', () => {
-  let component: MultiComponent;
-  let fixture: ComponentFixture<MultiComponent>;
+describe('MultiDialogComponent', () => {
+  let component: MultiDialogComponent;
+  let fixture: ComponentFixture<MultiDialogComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ MultiComponent ]
+      declarations: [ MultiDialogComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(MultiComponent);
+    fixture = TestBed.createComponent(MultiDialogComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

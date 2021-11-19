@@ -1,0 +1,32 @@
+.mat-dialog-title {
+  padding: 15px;
+  margin: 0;
+  background-color: #e57905;
+  text-transform: capitalize;
+}
+
+.mat-dialog-content{
+  margin: 30px;
+  padding: 0;
+  font-size: 18px;
+  overflow: hidden;
+}
+
+.mat-dialog-actions {
+  margin: 0;
+  padding: 7px 10px;
+  border-top: 1px solid rgb(214, 214, 214);
+}
+
+.btn-dialog__primary {
+  background-color: #6aa84f;
+  color: #fff;
+  border: 1px solid #7e7e7e;
+  outline: none;
+}
+
+.btn-dialog__secondary {
+  background-color: #ddd;
+  border: 1px solid #7e7e7e;
+  outline: none;
+}

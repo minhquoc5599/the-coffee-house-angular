@@ -1,2 +1,3 @@
-<app-table type="account" [data]="accountList" [columnList]="columnList" (newItemEvent)="reload()">
+<app-table type="account" [data]="accountList" [columnList]="columnList" (reloadEvent)="reload()"
+  (deleteEvent)="deleteAccount($event)">
 </app-table>

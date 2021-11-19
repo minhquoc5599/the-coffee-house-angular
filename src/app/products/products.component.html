@@ -1,1 +1,1 @@
-<app-table type="product" [data]="productList" [columnList]="columnList" (newItemEvent)="reload()"></app-table>
+<app-table type="product" [data]="productList" [columnList]="columnList" (reloadEvent)="reload()" (deleteEvent)="deleteProduct($event)"></app-table>

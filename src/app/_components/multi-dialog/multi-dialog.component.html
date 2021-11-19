@@ -1,0 +1,10 @@
+<h1 mat-dialog-title>{{action}} {{type}}</h1>
+<form>
+  <mat-dialog-content *ngIf="action === 'delete'">
+    <span>Are you sure you want to {{action}} {{type}} {{data.name}}?</span>
+  </mat-dialog-content>
+  <mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close class="btn-dialog__secondary">Cancel</button>
+    <button mat-button [mat-dialog-close]="true" class="btn-dialog__primary" (click)="confirmDialog()">Ok</button>
+  </mat-dialog-actions>
+</form>

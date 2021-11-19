@@ -35,9 +35,6 @@ export class AccountsComponent implements OnInit {
     {
       name: 'email',
       sorted: true,
-    },
-    {
-      name: 'action'
     }
   ];
 
@@ -47,9 +44,17 @@ export class AccountsComponent implements OnInit {
     this.reload();
   }
 
+  // Reload
   public reload() {
     this.accountService.getAll().subscribe(accounts => {
       this.accountList = new MatTableDataSource<User>(accounts);
+    });
+  }
+
+  // Delete account
+  public deleteAccount(id: string) {
+    this.accountService.delete(id).subscribe(() => {
+      this.accountList.data = this.accountList.data.filter(account => account.id !== id)
     });
   }
 }

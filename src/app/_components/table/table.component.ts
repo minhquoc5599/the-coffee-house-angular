@@ -4,6 +4,8 @@ import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { MatSort, Sort } from '@angular/material/sort';
 import { SelectionModel } from '@angular/cdk/collections';
 import { MatPaginator } from '@angular/material/paginator';
+import { MatDialog } from '@angular/material/dialog';
+import { MultiDialogComponent } from '../multi-dialog/multi-dialog.component';
 
 @Component({
   selector: 'app-table',
@@ -16,14 +18,15 @@ export class TableComponent implements OnInit, OnChanges {
   @Input() displayedColumns: string[] = [];
   @Input() data!: MatTableDataSource<any>;
 
-  @Output() newItemEvent = new EventEmitter<string>();
+  @Output() reloadEvent = new EventEmitter<string>();
+  @Output() deleteEvent = new EventEmitter<string>();
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort
 
   public selection: SelectionModel<any> = new SelectionModel<any>(true, []);
 
-  constructor(private _liveAnnouncer: LiveAnnouncer) { }
+  constructor(private _liveAnnouncer: LiveAnnouncer, private dialog: MatDialog) { }
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['data']) {
@@ -35,6 +38,7 @@ export class TableComponent implements OnInit, OnChanges {
     }
     if (changes['columnList']) {
       this.displayedColumns = this.columnList.map(col => col.name);
+      this.displayedColumns.push('action');
     }
   }
 
@@ -70,6 +74,34 @@ export class TableComponent implements OnInit, OnChanges {
 
   // Reload
   public reload() {
-    this.newItemEvent.emit();
+    this.reloadEvent.emit();
+  }
+
+  // Open dialog
+  public openDialog(action: string, type: string, obj: any) {
+    const dialogRef = this.dialog.open(MultiDialogComponent,
+      {
+        data: {
+          action,
+          type,
+          obj
+        }
+      });
+    dialogRef.afterClosed().subscribe(result => {
+      switch (result.action) {
+        case 'delete': {
+          this.deleteItem(result.id);
+          break;
+        }
+        default: {
+          break;
+        }
+      }
+    });
+  }
+
+  // Delete item
+  public deleteItem(id: string) {
+    this.deleteEvent.emit(id);
   }
 }

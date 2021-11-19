@@ -31,9 +31,6 @@ export class ProductsComponent implements OnInit {
       name: 'sizes',
       sorted: true,
       template: 'size'
-    },
-    {
-      name: 'action'
     }
   ];
 
@@ -43,9 +40,17 @@ export class ProductsComponent implements OnInit {
     this.reload();
   }
 
+  // Reload
   public reload() {
     this.productService.getAll().subscribe(products => {
       this.productList = new MatTableDataSource<Product>(products);
+    });
+  }
+
+  // Delete product
+  public deleteProduct(id: string) {
+    this.productService.delete(id).subscribe(() => {
+      this.productList.data = this.productList.data.filter(product => product.id !== id)
     });
   }
 

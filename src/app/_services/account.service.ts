@@ -27,6 +27,7 @@ export class AccountService {
         user.role === 'admin');
       if (user) {
         localStorage.setItem('user', JSON.stringify({
+          id: user.id,
           role: user.role
         }));
         this.userSubject.next(user);
@@ -46,7 +47,17 @@ export class AccountService {
     this.router.navigate(['/login']);
   }
 
-  public getAll():Observable<User[]> {
+  public getAll(): Observable<User[]> {
     return this.http.get<User[]>(`${environment.apiUrl}/accounts`);
+  }
+  public delete(id: string) {
+    return this.http.delete(`${environment.apiUrl}/accounts/${id}`).pipe(
+      map(user => {
+        if (id === this.userValue.id) {
+          this.logout();
+        }
+        return user;
+      })
+    );
   }
 }
