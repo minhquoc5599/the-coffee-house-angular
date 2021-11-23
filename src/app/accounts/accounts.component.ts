@@ -51,6 +51,15 @@ export class AccountsComponent implements OnInit {
     });
   }
 
+  // Edit
+  public editAccount(data: any) {
+    this.accountService.update(data.id, data).subscribe(() => {
+      const index = this.accountList.data.findIndex(accout => accout.id === data.id);
+      this.accountList.data[index] = JSON.parse(JSON.stringify(data));
+      this.accountList.data = [... this.accountList.data];
+    });
+  }
+
   // Delete account
   public deleteAccount(id: string) {
     this.accountService.delete(id).subscribe(() => {

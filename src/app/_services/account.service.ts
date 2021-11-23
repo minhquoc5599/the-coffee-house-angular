@@ -60,4 +60,7 @@ export class AccountService {
       })
     );
   }
+  public update(id: string, params: any) {
+    return this.http.put(`${environment.apiUrl}/accounts/${id}`, params);
+  }
 }

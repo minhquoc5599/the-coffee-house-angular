@@ -30,3 +30,30 @@
   border: 1px solid #7e7e7e;
   outline: none;
 }
+
+.form-field{
+  margin-bottom: 20px;
+}
+
+label{
+  margin: 0 20px 0 0;
+  width: 60px;
+  text-align: end;
+}
+
+.input{
+  padding: 8px;
+  width: 350px;
+}
+
+.mat-radio-button ~ .mat-radio-button {
+  margin-left: 16px;
+}
+
+.mat-radio-label{
+  margin-bottom: 0 !important;
+}
+
+.form-select{
+  padding: 2px;
+}

@@ -13,6 +13,7 @@ import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatSortModule} from '@angular/material/sort'
 import {MatDialogModule} from '@angular/material/dialog';
+import {MatRadioModule} from '@angular/material/radio'
 @NgModule({
   declarations: [],
   imports: [
@@ -31,7 +32,8 @@ import {MatDialogModule} from '@angular/material/dialog';
     MatPaginatorModule,
     MatCheckboxModule,
     MatSortModule, 
-    MatDialogModule
+    MatDialogModule,
+    MatRadioModule
   ]
 })
 export class MaterialModule { }

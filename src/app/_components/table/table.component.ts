@@ -19,6 +19,7 @@ export class TableComponent implements OnInit, OnChanges {
   @Input() data!: MatTableDataSource<any>;
 
   @Output() reloadEvent = new EventEmitter<string>();
+  @Output() editEvent = new EventEmitter<string>();
   @Output() deleteEvent = new EventEmitter<string>();
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -89,6 +90,10 @@ export class TableComponent implements OnInit, OnChanges {
       });
     dialogRef.afterClosed().subscribe(result => {
       switch (result.action) {
+        case 'edit': {
+          this.editItem(result.data);
+          break;
+        }
         case 'delete': {
           this.deleteItem(result.id);
           break;
@@ -98,6 +103,11 @@ export class TableComponent implements OnInit, OnChanges {
         }
       }
     });
+  }
+
+  // Edit item
+  public editItem(data: any) {
+    this.editEvent.emit(data);
   }
 
   // Delete item
