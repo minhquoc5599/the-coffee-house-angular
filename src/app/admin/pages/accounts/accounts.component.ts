@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { Observable } from 'rxjs';
-import { User } from '../_models/user';
-import { AccountService } from '../_services/account.service';
+import { User } from '../../../_models/user';
+import { AccountService } from '../../../_services/account.service';
 
 @Component({
   selector: 'app-accounts',
@@ -42,6 +42,7 @@ export class AccountsComponent implements OnInit {
 
   /**
    * @return {void} 
+   * @description Reload account list
    */
   public reload(): void {
     this.accountService.getAll().subscribe(accounts => {
@@ -49,8 +50,12 @@ export class AccountsComponent implements OnInit {
     });
   }
 
-  // Edit
-  public editAccount(data: any) {
+  /**
+   * @param data 
+   * @returns {void}
+   * @description Update Account
+   */
+  public editAccount(data: any): void {
     this.accountService.update(data.id, data).subscribe(() => {
       const index = this.accountList.data.findIndex(accout => accout.id === data.id);
       this.accountList.data[index] = JSON.parse(JSON.stringify(data));
@@ -60,8 +65,9 @@ export class AccountsComponent implements OnInit {
 
   /**
    * 
-   * @param id 
-   * @return {void}
+   * @param {string} id 
+   * @returns {void}
+   * @description Delete account
    */
   public deleteAccount(id: string): void {
     this.accountService.delete(id).subscribe(() => {

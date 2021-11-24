@@ -25,6 +25,10 @@ export class LoginComponent implements OnInit {
     
   }
 
+  /**
+   * @returns {void}
+   * @description Submit login
+   */
   public onSubmit(): void {
     if (this.formLogin.invalid) {
       return;

@@ -1,7 +1,7 @@
 import { AfterViewInit, ChangeDetectorRef, Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
-import { Product } from '../_models/product';
-import { ProductService } from '../_services/product.service';
+import { Product } from '../../models/product';
+import { ProductService } from '../../services/product.service';
 
 @Component({
   selector: 'app-products',
@@ -50,15 +50,23 @@ export class ProductsComponent implements OnInit, AfterViewInit {
   }
 
 
-  // Reload
-  public reload() {
+  /**
+   * @return {void} 
+   * @description Reload product list
+   */
+  public reload(): void {
     this.productService.getAll().subscribe(products => {
       this.productList = new MatTableDataSource<Product>(products);
     });
   }
 
-  // Delete product
-  public deleteProduct(id: string) {
+  /**
+   * 
+   * @param {string} id 
+   * @returns {void}
+   * @description Delete product
+   */
+  public deleteProduct(id: string): void {
     this.productService.delete(id).subscribe(() => {
       this.productList.data = this.productList.data.filter(product => product.id !== id)
     });

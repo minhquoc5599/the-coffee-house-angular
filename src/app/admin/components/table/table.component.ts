@@ -1,18 +1,18 @@
-import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges, ViewChild } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { MatSort, Sort } from '@angular/material/sort';
 import { SelectionModel } from '@angular/cdk/collections';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatDialog } from '@angular/material/dialog';
-import { MultiDialogComponent } from '../multi-dialog/multi-dialog.component';
+import { DeleteDialogComponent } from '../delete-dialog/delete-dialog.component';
 
 @Component({
   selector: 'app-table',
   templateUrl: './table.component.html',
   styleUrls: ['./table.component.css']
 })
-export class TableComponent implements OnInit, OnChanges {
+export class TableComponent implements OnChanges {
   @Input() type: string = '';
   @Input() columnList: any[] = [];
   @Input() displayedColumns: string[] = [];
@@ -44,11 +44,12 @@ export class TableComponent implements OnInit, OnChanges {
     }
   }
 
-  ngOnInit(): void {
-  }
-
-  // Sort
-  public announceSortChange(sortState: Sort) {
+  /**
+   * @param {Sort} sortState 
+   * @return {void}
+   * @description Sorted.
+   */
+  public announceSortChange(sortState: Sort): void {
     if (sortState.direction) {
       this._liveAnnouncer.announce(`Sorted ${sortState.direction}ending`);
     } else {
@@ -56,63 +57,62 @@ export class TableComponent implements OnInit, OnChanges {
     }
   }
 
-  // Select
-  public isAllSelected() {
+  /**
+   * @returns {boolean}
+   * @description Check all selected.
+   */
+  public isAllSelected(): boolean {
     const numSelected = this.selection.selected.length;
     const numRows = this.data.data.length;
     return numSelected === numRows;
   }
 
-  public masterToggle() {
+  /**
+   * @returns {void}
+   * @description Toggle all selected.
+   */
+  public masterToggle(): void {
     this.isAllSelected() ?
       this.selection.clear() :
       this.data.data.forEach(row => this.selection.select(row));
   }
 
-  // Search
-  public search(event: any) {
+  /**
+   * @param {any} event 
+   * @returns {void}
+   * @description Search.
+   */
+  public search(event: any): void {
+    console.log(event);
     this.data.filter = event.target.value.trim().toLocaleLowerCase();
   }
 
-  // Reload
-  public reload() {
+  /**
+   * @returns {void}
+   * @description Reload table
+   */
+  public reload(): void {
     this.reloadEvent.emit();
   }
 
-  // Open dialog
-  public openDialog(action: string, type: string, obj: any) {
-    const dialogRef = this.dialog.open(MultiDialogComponent,
+  /**
+   * @param {string} id
+   * @param {strign} name 
+   * @returns {void}
+   * @description Open delete dialog and send  event delete to parent component
+   */
+  public openDeleteDialog(id: string, name: string): void {
+    const dialogRef = this.dialog.open(DeleteDialogComponent,
       {
         data: {
-          action,
-          type,
-          obj
+          type: this.type,
+          name
         }
       });
-    dialogRef.afterClosed().subscribe(result => {
-      switch (result.action) {
-        case 'edit': {
-          this.editItem(result.data);
-          break;
-        }
-        case 'delete': {
-          this.deleteItem(result.id);
-          break;
-        }
-        default: {
-          break;
-        }
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result.confirm) {
+        this.deleteEvent.emit(id);
       }
-    });
-  }
-
-  // Edit item
-  public editItem(data: any) {
-    this.editEvent.emit(data);
-  }
-
-  // Delete item
-  public deleteItem(id: string) {
-    this.deleteEvent.emit(id);
+    })
   }
 }

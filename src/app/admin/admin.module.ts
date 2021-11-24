@@ -4,13 +4,13 @@ import { CommonModule } from '@angular/common';
 import { AdminRoutingModule } from './admin-routing.module';
 import { MaterialModule } from '../_modules/material/material.module';
 import { AdminComponent } from './admin.component';
-import { TopBarComponent } from '../_components/top-bar/top-bar.component';
-import { SideBarComponent } from '../_components/side-bar/side-bar.component';
-import { AccountsComponent } from '../accounts/accounts.component';
-import { ProductsComponent } from '../products/products.component';
-import { HomeComponent } from '../home/home.component';
-import { TableComponent } from '../_components/table/table.component';
-import { MultiDialogComponent } from '../_components/multi-dialog/multi-dialog.component';
+import { TopBarComponent } from './shared/top-bar/top-bar.component';
+import { SideBarComponent } from './shared/side-bar/side-bar.component';
+import { AccountsComponent } from './pages/accounts/accounts.component';
+import { ProductsComponent } from './pages/products/products.component';
+import { HomeComponent } from './pages/home/home.component';
+import { TableComponent } from './components/table/table.component';
+import { DeleteDialogComponent } from './components/delete-dialog/delete-dialog.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +21,7 @@ import { MultiDialogComponent } from '../_components/multi-dialog/multi-dialog.c
     AccountsComponent,
     ProductsComponent,
     TableComponent,
-    MultiDialogComponent,
+    DeleteDialogComponent
   ],
   imports: [
     CommonModule,

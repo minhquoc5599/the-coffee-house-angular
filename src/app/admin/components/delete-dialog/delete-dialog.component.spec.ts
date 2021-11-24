@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { MultiDialogComponent } from './multi-dialog.component';
+import { DeleteDialogComponent } from './delete-dialog.component';
 
-describe('MultiDialogComponent', () => {
-  let component: MultiDialogComponent;
-  let fixture: ComponentFixture<MultiDialogComponent>;
+describe('DeleteDialogComponent', () => {
+  let component: DeleteDialogComponent;
+  let fixture: ComponentFixture<DeleteDialogComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ MultiDialogComponent ]
+      declarations: [ DeleteDialogComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(MultiDialogComponent);
+    fixture = TestBed.createComponent(DeleteDialogComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
