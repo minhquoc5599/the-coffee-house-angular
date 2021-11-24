@@ -10,7 +10,6 @@ import { AccountsComponent } from '../accounts/accounts.component';
 import { ProductsComponent } from '../products/products.component';
 import { HomeComponent } from '../home/home.component';
 import { TableComponent } from '../_components/table/table.component';
-import { MultiColumnComponent } from '../_components/multi-column/multi-column.component';
 import { MultiDialogComponent } from '../_components/multi-dialog/multi-dialog.component';
 
 @NgModule({
@@ -22,7 +21,6 @@ import { MultiDialogComponent } from '../_components/multi-dialog/multi-dialog.c
     AccountsComponent,
     ProductsComponent,
     TableComponent,
-    MultiColumnComponent,
     MultiDialogComponent,
   ],
   imports: [

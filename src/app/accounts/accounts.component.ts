@@ -11,11 +11,7 @@ import { AccountService } from '../_services/account.service';
 })
 export class AccountsComponent implements OnInit {
   public accountList!: MatTableDataSource<User>;
-  public columnList: { name: string, sorted?: boolean, checkbox?: boolean, template?: string }[] = [
-    {
-      name: 'select',
-      checkbox: true
-    },
+  public columnList: { name: string, sorted?: boolean, template?: string }[] = [
     {
       name: 'name',
       sorted: true,
@@ -44,8 +40,10 @@ export class AccountsComponent implements OnInit {
     this.reload();
   }
 
-  // Reload
-  public reload() {
+  /**
+   * @return {void} 
+   */
+  public reload(): void {
     this.accountService.getAll().subscribe(accounts => {
       this.accountList = new MatTableDataSource<User>(accounts);
     });
@@ -60,8 +58,12 @@ export class AccountsComponent implements OnInit {
     });
   }
 
-  // Delete account
-  public deleteAccount(id: string) {
+  /**
+   * 
+   * @param id 
+   * @return {void}
+   */
+  public deleteAccount(id: string): void {
     this.accountService.delete(id).subscribe(() => {
       this.accountList.data = this.accountList.data.filter(account => account.id !== id)
     });

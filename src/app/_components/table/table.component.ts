@@ -40,6 +40,7 @@ export class TableComponent implements OnInit, OnChanges {
     if (changes['columnList']) {
       this.displayedColumns = this.columnList.map(col => col.name);
       this.displayedColumns.push('action');
+      this.displayedColumns.unshift('checkbox');
     }
   }
 
