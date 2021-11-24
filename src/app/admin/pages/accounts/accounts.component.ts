@@ -1,8 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
 import { Observable } from 'rxjs';
 import { User } from '../../../_models/user';
 import { AccountService } from '../../../_services/account.service';
+import { AccountDialogComponent } from '../../components/account-dialog/account-dialog.component';
 
 @Component({
   selector: 'app-accounts',
@@ -11,7 +13,7 @@ import { AccountService } from '../../../_services/account.service';
 })
 export class AccountsComponent implements OnInit {
   public accountList!: MatTableDataSource<User>;
-  public columnList: { name: string, sorted?: boolean, template?: string }[] = [
+  public columnList: { name: string, sorted?: boolean, template?: TemplateRef<any> }[] = [
     {
       name: 'name',
       sorted: true,
@@ -34,7 +36,7 @@ export class AccountsComponent implements OnInit {
     }
   ];
 
-  constructor(private accountService: AccountService) { }
+  constructor(private accountService: AccountService, private dialog: MatDialog) { }
 
   ngOnInit(): void {
     this.reload();
@@ -51,16 +53,48 @@ export class AccountsComponent implements OnInit {
   }
 
   /**
-   * @param data 
+   * @param {User} data 
    * @returns {void}
    * @description Update Account
    */
-  public editAccount(data: any): void {
+  public updateAccount(data: User): void {
     this.accountService.update(data.id, data).subscribe(() => {
       const index = this.accountList.data.findIndex(accout => accout.id === data.id);
       this.accountList.data[index] = JSON.parse(JSON.stringify(data));
       this.accountList.data = [... this.accountList.data];
     });
+  }
+
+  /**
+   * 
+   * @param {action: string, data: User} event
+   * @returns {void}
+   * @description Open dialog with 2 action create, update 
+   */
+  public openDialog(event: {action: string, data: User}): void{
+    const dialogRef =this.dialog.open(AccountDialogComponent,
+      {
+        data:{
+          action: event.action,
+          data: event.data
+        }
+      });
+      dialogRef.afterClosed().subscribe((result: {confirm: string, data: User}) =>{
+        if(result.data){
+          switch (event.action){
+            case 'create':{
+              break;
+            }
+            case 'update':{
+              this.updateAccount(result.data);
+              break;
+            }
+            default: {
+              break;
+            }
+          }
+        }
+      })
   }
 
   /**

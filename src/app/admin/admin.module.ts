@@ -11,6 +11,7 @@ import { ProductsComponent } from './pages/products/products.component';
 import { HomeComponent } from './pages/home/home.component';
 import { TableComponent } from './components/table/table.component';
 import { DeleteDialogComponent } from './components/delete-dialog/delete-dialog.component';
+import { AccountDialogComponent } from './components/account-dialog/account-dialog.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { DeleteDialogComponent } from './components/delete-dialog/delete-dialog.
     AccountsComponent,
     ProductsComponent,
     TableComponent,
-    DeleteDialogComponent
+    DeleteDialogComponent,
+    AccountDialogComponent
   ],
   imports: [
     CommonModule,

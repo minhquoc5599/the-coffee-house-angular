@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges, TemplateRef, ViewChild } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { MatSort, Sort } from '@angular/material/sort';
@@ -6,6 +6,8 @@ import { SelectionModel } from '@angular/cdk/collections';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatDialog } from '@angular/material/dialog';
 import { DeleteDialogComponent } from '../delete-dialog/delete-dialog.component';
+import { User } from 'src/app/_models/user';
+import { AccountDialogComponent } from '../account-dialog/account-dialog.component';
 
 @Component({
   selector: 'app-table',
@@ -14,12 +16,12 @@ import { DeleteDialogComponent } from '../delete-dialog/delete-dialog.component'
 })
 export class TableComponent implements OnChanges {
   @Input() type: string = '';
-  @Input() columnList: any[] = [];
+  @Input() columnList: {name: string, sorted?: boolean, template?: TemplateRef<any>}[] = [];
   @Input() displayedColumns: string[] = [];
   @Input() data!: MatTableDataSource<any>;
 
   @Output() reloadEvent = new EventEmitter<string>();
-  @Output() editEvent = new EventEmitter<string>();
+  @Output() updateEvent = new EventEmitter<{action: string, data: any}>();
   @Output() deleteEvent = new EventEmitter<string>();
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -93,6 +95,17 @@ export class TableComponent implements OnChanges {
    */
   public reload(): void {
     this.reloadEvent.emit();
+  }
+
+  /**
+   * 
+   * @param {string} action 
+   * @param {any}data 
+   * @returns {void}
+   * @description Open update dialog
+   */
+  public openUpdateDialog(action: string, data: any) : void{
+    this.updateEvent.emit({action, data});
   }
 
   /**

@@ -38,7 +38,6 @@
 
         <div *ngIf="column.template">
           <td mat-cell *matCellDef="let element">
-            <!-- <app-multi-column [type]="column.template" [data]="element[column.name]"></app-multi-column> -->
             <ng-container *ngTemplateOutlet="column.template; context: {foo: element[column.name]}"></ng-container>
           </td>
 
@@ -53,7 +52,7 @@
       <ng-container matColumnDef="action">
         <th mat-header-cell *matHeaderCellDef>Action</th>
         <td mat-cell *matCellDef="let element">
-          <button mat-raised-button class="btn-edit">
+          <button mat-raised-button class="btn-edit" (click)="openUpdateDialog('update', element)">
             <i class="fas fa-edit"></i></button>
           <button mat-raised-button class="btn-delete" (click)="openDeleteDialog(element.id, element.name)">
             <i class="fas fa-trash-alt"></i></button>
