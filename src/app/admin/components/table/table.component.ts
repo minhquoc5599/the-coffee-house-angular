@@ -16,12 +16,13 @@ import { AccountDialogComponent } from '../account-dialog/account-dialog.compone
 })
 export class TableComponent implements OnChanges {
   @Input() type: string = '';
-  @Input() columnList: {name: string, sorted?: boolean, template?: TemplateRef<any>}[] = [];
+  @Input() columnList: { name: string, sorted?: boolean, template?: TemplateRef<any> }[] = [];
   @Input() displayedColumns: string[] = [];
   @Input() data!: MatTableDataSource<any>;
 
   @Output() reloadEvent = new EventEmitter<string>();
-  @Output() updateEvent = new EventEmitter<{action: string, data: any}>();
+  @Output() createEvent = new EventEmitter<{ action: string }>();
+  @Output() updateEvent = new EventEmitter<{ action: string, data: any }>();
   @Output() deleteEvent = new EventEmitter<string>();
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -99,13 +100,23 @@ export class TableComponent implements OnChanges {
 
   /**
    * 
+   * @param {string} action
+   * @returns {void}
+   * @description Open create dialog 
+   */
+  public openCreateDialog(action: string): void {
+    this.createEvent.emit({ action });
+  }
+
+  /**
+   * 
    * @param {string} action 
    * @param {any}data 
    * @returns {void}
    * @description Open update dialog
    */
-  public openUpdateDialog(action: string, data: any) : void{
-    this.updateEvent.emit({action, data});
+  public openUpdateDialog(action: string, data: any): void {
+    this.updateEvent.emit({ action, data });
   }
 
   /**

@@ -1,9 +1,8 @@
 <app-table type="product" [data]="productList" [columnList]="columnList" (reloadEvent)="reload()"
-  (deleteEvent)="deleteProduct($event)"></app-table>
+  (updateEvent)="openDialog($event)" (deleteEvent)="deleteProduct($event)"></app-table>
 <ng-template #image let-foo="foo">
   <img src="{{foo}}" alt="{{foo}}">
 </ng-template>
 <ng-template #size let-foo="foo">
   <span *ngFor="let size of foo" class="size">{{size.name}}</span>
 </ng-template>
-

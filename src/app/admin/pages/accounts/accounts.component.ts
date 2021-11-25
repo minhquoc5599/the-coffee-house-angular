@@ -35,7 +35,6 @@ export class AccountsComponent implements OnInit {
       sorted: true,
     }
   ];
-
   constructor(private accountService: AccountService, private dialog: MatDialog) { }
 
   ngOnInit(): void {
@@ -59,7 +58,7 @@ export class AccountsComponent implements OnInit {
    */
   public updateAccount(data: User): void {
     this.accountService.update(data.id, data).subscribe(() => {
-      const index = this.accountList.data.findIndex(accout => accout.id === data.id);
+      const index = this.accountList.data.findIndex(account => account.id === data.id);
       this.accountList.data[index] = JSON.parse(JSON.stringify(data));
       this.accountList.data = [... this.accountList.data];
     });
@@ -69,7 +68,7 @@ export class AccountsComponent implements OnInit {
    * 
    * @param {action: string, data: User} event
    * @returns {void}
-   * @description Open dialog with 2 action create, update 
+   * @description Open dialog with action update 
    */
   public openDialog(event: {action: string, data: User}): void{
     const dialogRef =this.dialog.open(AccountDialogComponent,
@@ -82,9 +81,6 @@ export class AccountsComponent implements OnInit {
       dialogRef.afterClosed().subscribe((result: {confirm: string, data: User}) =>{
         if(result.data){
           switch (event.action){
-            case 'create':{
-              break;
-            }
             case 'update':{
               this.updateAccount(result.data);
               break;

@@ -15,6 +15,10 @@ export class ProductService {
     return this.http.get<Product[]>(`${environment.apiUrl}/products`);
   }
 
+  public update(id: string, params: Product) {
+    return this.http.put(`${environment.apiUrl}/products/${id}`, params)
+  }
+
   public delete(id: string) {
     return this.http.delete(`${environment.apiUrl}/products/${id}`);
   }

@@ -1,0 +1,90 @@
+.mat-dialog-title {
+  padding: 15px;
+  margin: 0;
+  background-color: #e57905;
+  text-transform: capitalize;
+}
+
+.mat-dialog-content {
+  margin: 30px;
+  padding: 0;
+  font-size: 18px;
+}
+
+.mat-dialog-actions {
+  margin: 0;
+  padding: 7px 10px;
+  border-top: 1px solid rgb(214, 214, 214);
+}
+
+.btn-dialog__primary {
+  background-color: #6aa84f;
+  color: #fff;
+  border: 1px solid #7e7e7e;
+  outline: none;
+}
+
+.btn-dialog__secondary {
+  background-color: #ddd;
+  border: 1px solid #7e7e7e;
+  outline: none;
+}
+
+.form-field {
+  margin-bottom: 20px;
+}
+
+label {
+  margin: 0 20px 0 0;
+  width: 80px;
+  text-align: end;
+}
+
+.input {
+  padding: 6px;
+  width: 300px;
+}
+
+.mat-radio-button~.mat-radio-button {
+  margin-left: 16px;
+}
+
+.mat-radio-label {
+  margin-bottom: 0 !important;
+}
+
+.form-select {
+  padding: 5px;
+}
+
+.attribute {
+  margin-bottom: 20px;
+}
+
+.input-price {
+  margin-left: 10px;
+  padding: 6px;
+  width: 200px;
+}
+
+.btn-add {
+  margin-left: 100px;
+  color: #fff;
+  background-color: #6aa84f;
+  font-size: 17px;
+}
+
+.btn-remove {
+  margin-left: 10px;
+  border-radius: 50%;
+  font-size: 15px;
+  width: 30px;
+  height: 30px;
+  color: #fff;
+  background-color: rgb(247, 30, 30);
+  border: none
+}
+
+.btn-remove:hover{
+  background-color: rgb(219, 22, 22);
+}

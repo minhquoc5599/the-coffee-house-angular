@@ -1,7 +1,13 @@
 import { AfterViewInit, ChangeDetectorRef, Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
+import { ProductDialogComponent } from '../../components/product-dialog/product-dialog.component';
+import { Category } from '../../models/category';
 import { Product } from '../../models/product';
+import { Size } from '../../models/size';
+import { CategoryService } from '../../services/category.service';
 import { ProductService } from '../../services/product.service';
+import { SizeService } from '../../services/size.service';
 
 @Component({
   selector: 'app-products',
@@ -32,10 +38,20 @@ export class ProductsComponent implements OnInit, AfterViewInit {
     }
   ];
 
-  constructor(private productService: ProductService, private cd: ChangeDetectorRef) { }
+  public categoryList: Category[] = [];
+  public sizeList: Size[] = [];
+
+  constructor(
+    private productService: ProductService,
+    private cd: ChangeDetectorRef,
+    private dialog: MatDialog,
+    private categoryService: CategoryService,
+    private sizeService: SizeService) { }
 
   ngOnInit(): void {
     this.reload();
+    this.getCategoryList();
+    this.getSizeList();
   }
 
   ngAfterViewInit(): void {
@@ -58,6 +74,69 @@ export class ProductsComponent implements OnInit, AfterViewInit {
     this.productService.getAll().subscribe(products => {
       this.productList = new MatTableDataSource<Product>(products);
     });
+  }
+
+  /**
+   * @returns {void}
+   * @description Get category list
+   */
+  public getCategoryList(): void {
+    this.categoryService.getAll().subscribe(categoryList => {
+      this.categoryList = categoryList;
+    })
+  }
+
+  /**
+   * @returns {void}
+   * @description Get size list
+   */
+  public getSizeList(): void {
+    this.sizeService.getAll().subscribe(sizeList => {
+      this.sizeList = sizeList;
+    })
+  }
+
+  /**
+   * 
+   * @param {action: string, data: Product} event 
+   * @returns {void}
+   * @description Open dialog with 2 action create, update
+   */
+  public openDialog(event: { action: string, data: Product }): void {
+    const dialogRef = this.dialog.open(ProductDialogComponent, {
+      data: {
+        action: event.action,
+        data: event.data,
+        categoryList: this.categoryList,
+        sizeList: this.sizeList,
+      }
+    })
+    dialogRef.afterClosed().subscribe((result: { data: Product }) => {
+      if (result.data) {
+        switch (event.action) {
+          case 'update': {
+            this.updateProduct(result.data);
+            break;
+          }
+          default: {
+            break;
+          }
+        }
+      }
+    })
+  }
+
+  /**
+   * @param {Product} data
+   * @returns {void}
+   * @description Update product
+   */
+  private updateProduct(data: Product): void {
+    this.productService.update(data.id, data).subscribe(() => {
+      const index = this.productList.data.findIndex(product => product.id === data.id);
+      this.productList.data[index] = JSON.parse(JSON.stringify(data));
+      this.productList.data = [... this.productList.data];
+    })
   }
 
   /**

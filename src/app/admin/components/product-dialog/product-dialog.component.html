@@ -1,0 +1,41 @@
+<h1 mat-dialog-title>{{data.action}} product</h1>
+<mat-dialog-content>
+  <form [formGroup]="form" name="formAccount">
+    <div class="form-field">
+      <label>Name</label>
+      <input type="text" placeholder="Name" class="input" formControlName="name">
+    </div>
+    <div fxLayout="row" fxLayoutAlign="start center" class="form-field">
+      <label>Category</label>
+      <select class="form-select" formControlName="category">
+        <option [value]="category.name" *ngFor="let category of data.categoryList">{{category.name}}</option>
+      </select>
+    </div>
+    <div fxLayout="row" fxLayoutAlign="start center" class="form-field">
+      <label>Attributes</label>
+      <div formArrayName="sizes">
+        <div *ngFor="let size of sizes.controls; index as idx">
+          <div formGroupName="{{idx}}" class="attribute" fxLayout="row" fxLayoutAlign="none center">
+            <select class="form-select" formControlName="name">
+              <option [value]="size.name" *ngFor="let size of data.sizeList">{{size.name}}</option>
+            </select>
+            <input type="number" class="input-price" formControlName="price">
+            <button class="btn-remove" (click)="removeAttributeRow(idx)"><i class="fas fa-times"></i></button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="form-field">
+      <button mat-button class="btn-add" (click)="addAttributeRow()"><i class="fas fa-plus"></i> Add</button>
+    </div>
+    <div fxLayout="row" fxLayoutAlign="start center" class="form-field">
+      <label>Description</label>
+      <textarea formControlName="description" class="input"></textarea>
+    </div>
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close class="btn-dialog__secondary">Cancel</button>
+  <button mat-button [mat-dialog-close]="true" class="btn-dialog__primary" (click)="confirmDialog()"
+    [disabled]="form.invalid">Ok</button>
+</mat-dialog-actions>
