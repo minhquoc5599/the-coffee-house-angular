@@ -40,6 +40,13 @@ export class ProductsComponent implements OnInit, AfterViewInit {
 
   public categoryList: Category[] = [];
   public sizeList: Size[] = [];
+  public emptyData: Product = {
+    name: '',
+    category: 'Coffee',
+    sizes: [{
+      name: 'S', price: 0
+    }], description: ''
+  }
 
   constructor(
     private productService: ProductService,
@@ -102,11 +109,11 @@ export class ProductsComponent implements OnInit, AfterViewInit {
    * @returns {void}
    * @description Open dialog with 2 action create, update
    */
-  public openDialog(event: { action: string, data: Product }): void {
+  public openDialog(event: { action: string, data?: Product }): void {
     const dialogRef = this.dialog.open(ProductDialogComponent, {
       data: {
         action: event.action,
-        data: event.data,
+        data: event.data || this.emptyData,
         categoryList: this.categoryList,
         sizeList: this.sizeList,
       }
@@ -114,6 +121,10 @@ export class ProductsComponent implements OnInit, AfterViewInit {
     dialogRef.afterClosed().subscribe((result: { data: Product }) => {
       if (result.data) {
         switch (event.action) {
+          case 'create': {
+            this.createProduct(result.data);
+            break;
+          }
           case 'update': {
             this.updateProduct(result.data);
             break;
@@ -129,14 +140,27 @@ export class ProductsComponent implements OnInit, AfterViewInit {
   /**
    * @param {Product} data
    * @returns {void}
+   * @description Create product 
+   */
+  private createProduct(data: Product): void {
+    this.productService.create(data).subscribe(() => {
+      this.reload();
+    })
+  }
+
+  /**
+   * @param {Product} data
+   * @returns {void}
    * @description Update product
    */
   private updateProduct(data: Product): void {
-    this.productService.update(data.id, data).subscribe(() => {
-      const index = this.productList.data.findIndex(product => product.id === data.id);
-      this.productList.data[index] = JSON.parse(JSON.stringify(data));
-      this.productList.data = [... this.productList.data];
-    })
+    if (data.id) {
+      this.productService.update(data.id, data).subscribe(() => {
+        const index = this.productList.data.findIndex(product => product.id === data.id);
+        this.productList.data[index] = JSON.parse(JSON.stringify(data));
+        this.productList.data = [... this.productList.data];
+      })
+    }
   }
 
   /**

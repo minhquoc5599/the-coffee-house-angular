@@ -1,8 +1,8 @@
 export interface Product {
-  id: string;
+  id?: string;
   name: string;
-  image: string;
+  image?: string;
   category: string;
-  sizes: Array<{ id: string, name: string, price: number }>;
+  sizes: Array<{ id?: string, name: string, price: number }>;
   description: string;
 }

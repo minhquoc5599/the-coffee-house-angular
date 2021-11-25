@@ -1,4 +1,4 @@
-<app-table type="product" [data]="productList" [columnList]="columnList" (reloadEvent)="reload()"
+<app-table type="product" [data]="productList" [columnList]="columnList" (reloadEvent)="reload()" (createEvent)="openDialog($event)"
   (updateEvent)="openDialog($event)" (deleteEvent)="deleteProduct($event)"></app-table>
 <ng-template #image let-foo="foo">
   <img src="{{foo}}" alt="{{foo}}">

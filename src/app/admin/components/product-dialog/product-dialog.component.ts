@@ -67,9 +67,9 @@ export class ProductDialogComponent implements OnInit {
    * @returns{void}
    * @description Remove attribute row
    */
-  public removeAttributeRow(idx: number): void {
+  public removeAttributeRow(idx: number): void{
     const sizes = this.form.get('sizes') as FormArray;
-    if (sizes.length > 1) {
+    if(sizes.length >1){
       sizes.removeAt(idx)
     }
   }
