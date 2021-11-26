@@ -139,4 +139,8 @@ export class TableComponent implements OnChanges {
       }
     })
   }
+
+  public deleteAll(){
+    console.log(this.selection.selected);
+  }
 }

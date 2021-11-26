@@ -2,12 +2,14 @@
   <div class="content__title">
     <a routerLink="../home">Home</a> > <span style="text-transform: capitalize;">{{type}} Management</span>
   </div>
-  <div fxLayout="row" fxLayoutAlign="space-between center">
+  <div fxLayout="row" fxLayoutAlign="space-between center" *ngIf="data">
     <span class="table__name">{{type}} Management</span>
     <div>
       <input type="search" class="table__search" placeholder="Search..." (keyup)="search($event)">
       <button mat-raised-button class="ml-2 btn-add" (click)="openCreateDialog('create')">Add</button>
       <button mat-raised-button class="ml-2 btn-reload" (click)="reload()"><i class="fas fa-sync"></i></button>
+      <button mat-raised-button class="ml-2 btn-delete--all" *ngIf="isAllSelected()" (click)="deleteAll()"><i
+          class="fas fa-trash-alt"></i></button>
     </div>
   </div>
 

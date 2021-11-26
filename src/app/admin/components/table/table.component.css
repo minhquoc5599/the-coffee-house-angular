@@ -14,10 +14,10 @@
 
 .table__search {
   width: 250px;
-  padding: 3px;
+  padding: 4px;
 }
 
-.btn-add, .btn-reload{
+.btn-add, .btn-reload, .btn-delete--all{
   outline: none;
   background-color: #ddd;
 }
