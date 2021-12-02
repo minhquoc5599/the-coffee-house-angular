@@ -1,4 +1,4 @@
-import { AfterViewInit, ChangeDetectorRef, Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
 import { ProductDialogComponent } from '../../components/product-dialog/product-dialog.component';
@@ -14,9 +14,9 @@ import { SizeService } from '../../services/size.service';
   templateUrl: './products.component.html',
   styleUrls: ['./products.component.css']
 })
-export class ProductsComponent implements OnInit, AfterViewInit {
-  @ViewChild('image') imageTemplate!: TemplateRef<any>;
-  @ViewChild('size') sizeTemplate!: TemplateRef<any>;
+export class ProductsComponent implements OnInit {
+  @ViewChild('image', { static: true }) imageTemplate!: TemplateRef<any>;
+  @ViewChild('size', { static: true }) sizeTemplate!: TemplateRef<any>;
   public productList!: MatTableDataSource<Product>;
   public columnList: { name: string, sorted?: boolean, template?: TemplateRef<any> }[] = [
     {
@@ -50,28 +50,22 @@ export class ProductsComponent implements OnInit, AfterViewInit {
 
   constructor(
     private productService: ProductService,
-    private cd: ChangeDetectorRef,
     private dialog: MatDialog,
     private categoryService: CategoryService,
     private sizeService: SizeService) { }
 
   ngOnInit(): void {
     this.reload();
-    this.getCategoryList();
-    this.getSizeList();
-  }
-
-  ngAfterViewInit(): void {
     this.columnList.forEach(item => {
       if (item.name === 'sizes') {
         item.template = this.sizeTemplate
       } else if (item.name === 'image') {
         item.template = this.imageTemplate
       }
-    })
-    this.cd.detectChanges();
+    });
+    this.getCategoryList();
+    this.getSizeList();
   }
-
 
   /**
    * @return {void} 
